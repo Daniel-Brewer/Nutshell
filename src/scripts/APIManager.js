@@ -13,11 +13,12 @@ const APIManager = Object.create(null, {
                 .then(response => response.json())
         }
     },
-    getUser: {
+    getAllUsers: {
         value: () => {
             return fetch("http://localhost:8088/users?_order=desc&_sort=date").then(r => r.json())
         }
     },
+
     deleteEntry: {
         value: (id) => {
             return fetch(`http://localhost:8088/entries/${id}`, {
