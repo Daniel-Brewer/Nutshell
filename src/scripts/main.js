@@ -1,5 +1,6 @@
 const FormManager = require("./RegistrationForm")
 const APIManager = require("./APIManager")
+const Storage = require("./Storage")
 
 // Render the journal entry form
 document.querySelector("#registrationForm").innerHTML = FormManager.renderRegistrationForm()
