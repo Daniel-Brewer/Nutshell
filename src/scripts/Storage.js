@@ -1,4 +1,4 @@
-const APIManager = require("./API/APIManager")
+const APIManager = require("./APIManager")
 
 const storage = Object.create(null, {
   loadData: {

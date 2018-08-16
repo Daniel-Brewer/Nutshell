@@ -1,38 +1,63 @@
 
 const RegistrationForm = require("./RegistrationForm")
-const APIManager = require("./API/APIManager")
+const APIManager = require("./APIManager")
 const storage = require("./Storage")
-// When uniqueUser is invoked...
-const uniqueUser = () => {
+// When activeUser is invoked...
+const verifyActiveUser = () => {
     // new user object is tested
     const newUser = {
-        "userName": $("#username").val(),
-        "email": $("#email").val(),
+        "username": document.querySelector("#username").value,
+        "email": document.querySelector("#email").value
     }
     // get all users from the api
-    APIManager.getAllUsers("user").then(array => {
-        // make a new array with just all the user names in the array
-        const existingUsernames = array.map((item) => {
-            return item.userName
-        })
-        /* search through the array of usernames to see if any of them match with
-        the user's user name input. If so, it will be returned, preventing it
-        to be added to the API*/
-        const existingUser = existingUsernames.find(user => {
-            const userNameInput = $("#username").val()
-            if (user === userNameInput) {
-                return user
+    APIManager.getAllUsers().then(result => {
+        // console.log(result);
+        loginVerification(result);
+    });
+    // verifyUser(result);
+    function loginVerification(users) {
+        let currentUser = users.find(user => {
+            console.log("users", users)
+            console.log("user", user)
+            return user.username === username && user.email === email;
+        });
+
+        if (currentUser) {
+            alert("yay you are logged in now!");
+            sessionStorage.setItem("activeUser", JSON.stringify(currentUser));
+            //take them to a new view, load landing page
+        }
+        else {
+            alert("you are not in our db, please register");
+            register();
+        }
+    }
+    function register() {
+        //values from the form when someone hits submit
+        let username = document.getElementById("username");
+        let email = document.getElementById("email");
+
+        //get users from the database
+        APIManager.getAllUsers().then(allUsers => {
+            let registeringUser = {
+                "username": username,
+                "email": email
+            }
+            //loop over the users in the database and compare values from the form
+            for (let i = 0; i < allUsers.length; i++) {
+                if (allUsers[i].username === username || allUsers[i].email === email) {
+                    alert("your username AND email must be unique. We found a duplicate in the database.")
+                } else {
+                    alert("woooo! you're logged in!")
+                    //add them to db! and theeeeeennnn
+                    APIManager.saveUser(registeringUser)
+                        .then(userThatWasAdded => {
+                            sessionStorage.setItem("activeUser", JSON.stringify(userThatWasAdded));
+                        })
+                    //change the view
+                }
             }
         })
-        /* Sends alert if user exists */
-        if (existingUser) {
-            alert("Already exists!")
-        } else {
-            // Stores new object in the API and Session Storage
-            APIManager.createObject("user", newUser).then(user => {
-                storage.saveData(newUser)
-            })
-        }
-    })
-} 
-module.exports = uniqueUser
+    }
+}
+module.exports = verifyActiveUser
