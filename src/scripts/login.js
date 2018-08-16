@@ -1,4 +1,4 @@
-/* login function */
+// verify if logged in user is unique
 const RegistrationForm = require("./RegistrationForm")
 const APIManager = require("./APIManager")
 const storage = require("./Storage")
@@ -29,6 +29,8 @@ const verifyActiveUser = () => {
         }
         else {
             alert("you are not in our db, please register");
-            register();
+            registeredUser(currentUser);
         }
     }
+}
+module.exports = verifyActiveUser

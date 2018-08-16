@@ -1,8 +1,8 @@
 const FormManager = require("./RegistrationForm")
 const APIManager = require("./APIManager")
 const Storage = require("./Storage")
-const verifyActiveUser = require("./Unique")
-const saveUser = require("./Unique")
+const verifyActiveUser = require("./Login")
+const registeredUser = require("./Register")
 
 // Render the registration form
 document.querySelector("#registrationForm").innerHTML = FormManager.renderRegistrationForm()

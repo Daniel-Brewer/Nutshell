@@ -13,7 +13,7 @@ const APIManager = Object.create(null, {
                 .then(response => response.json())
         }
     },
-    //  getting user resource
+    //  getting user array resource
     getAllUsers: {
         value: () => {
             return fetch("http://localhost:8088/users?_order=desc&_sort=date").then(r => r.json())
