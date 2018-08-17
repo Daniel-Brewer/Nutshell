@@ -1,5 +1,5 @@
 /* function to register unique users */
-const RegistrationForm = require("./RegistrationForm")
+const FormManager = require("./Forms")
 const APIManager = require("./APIManager")
 const storage = require("./Storage")
 const verifiedActiveUser = require("./login")
