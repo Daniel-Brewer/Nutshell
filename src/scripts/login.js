@@ -2,7 +2,7 @@
 const FormManager = require("./Forms")
 const APIManager = require("./APIManager")
 const storage = require("./Storage")
-// When activeUser is invoked...
+// When verifyActiveUser is invoked...
 const verifyActiveUser = () => {
     // new user object is tested
     const newUser = {
@@ -17,29 +17,27 @@ const verifyActiveUser = () => {
     // verifyUser(result);
     function loginVerification(users) {
         let currentUser = users.find(user => {
-            console.log("users at 18", users);
-            console.log("user at 19", user);
-            console.log("user.username", user.username)
             return user.username === newUser.username && user.email === newUser.email;
         });
         
         if (currentUser) {
-            // console.log("found user", currentUser);
             alert("yay you are logged in now!");
             sessionStorage.setItem("user", JSON.stringify(currentUser));
             //take them to a new view, load landing page
         }
         else {
-            // console.log("user at 33", currentUser);
             alert("you are not in our db, please register");
-            FormManager.clearForm()
-            FormManager.renderRegistrationForm()
+            $("#registerButton").click(function() {
+                APIManager.saveUser(newUser)
+                .then(() => {
+                    // Clear the form fields
+                    FormManager.clearForm()
+                    alert("yay you are logged in now!");
+                    //take them to a new view, load landing page
+                })
+            })
 
-            // APIManager.saveUser(currentUser)
-            // .then(() => {
-            //     // Clear the form fields
-            //     FormManager.clearForm()
-            // })
+
         }
     };
 }

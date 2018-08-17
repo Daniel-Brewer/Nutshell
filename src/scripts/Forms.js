@@ -32,6 +32,7 @@ const FormManager = Object.create(null, {
                     <input required type="text" id="email" placeholder="email">    
                 </fieldset>
                 <button id="loginButton">Login</button>
+                <button id="registerButton">Register User Account</button>
             `
         }
     }
