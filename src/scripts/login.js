@@ -2,6 +2,7 @@
 const FormManager = require("./Forms")
 const APIManager = require("./APIManager")
 const storage = require("./Storage")
+const landing = require("./Landing")
 // When verifyActiveUser is invoked...
 const verifyActiveUser = () => {
     // new user object is tested
@@ -11,7 +12,6 @@ const verifyActiveUser = () => {
     }
     // get all users from the api
     APIManager.getAllUsers().then(result => {
-        console.log("result in Login.js at 14", result);
         loginVerification(result);
     });
     // verifyUser(result);
@@ -24,6 +24,7 @@ const verifyActiveUser = () => {
             alert("yay you are logged in now!");
             sessionStorage.setItem("user", JSON.stringify(currentUser));
             //take them to a new view, load landing page
+            landing()
         }
         else {
             alert("you are not in our db, please register");
@@ -34,6 +35,7 @@ const verifyActiveUser = () => {
                     FormManager.clearForm()
                     alert("yay you are logged in now!");
                     //take them to a new view, load landing page
+                    landing()
                 })
             })
 
