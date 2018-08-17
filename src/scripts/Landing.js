@@ -4,7 +4,6 @@
 
 // creating the landing page and calling funtions to use for the buttons
 const landing = () => {
-    console.log("it works");
     $("#landing").append(`
     <h1 class="title is-1">Your Home for Tasks,Events, and Messages</h1>
     <div class="tile is-ancestor box">
