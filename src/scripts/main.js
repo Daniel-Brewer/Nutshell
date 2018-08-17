@@ -18,9 +18,10 @@ console.log(username, email)
     }
     // check to see if user already exists
     verifyActiveUser(userToBeAdded)
+    console.log("user to be added on 21 in main", userToBeAdded)
         // if user is unique
         //  POST to API
-        saveUser(userToBeAdded)
+        APIManager.saveUser(userToBeAdded)
             .then(() => {
                 // Clear the form fields
                 FormManager.clearForm()
